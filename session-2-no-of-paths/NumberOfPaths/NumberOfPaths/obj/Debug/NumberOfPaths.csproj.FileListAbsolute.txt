@@ -1,0 +1,6 @@
+C:\Users\vgim\Desktop\Desktop\Stuff\Algorithms\Repository\pramp\session-2-no-of-paths\NumberOfPaths\NumberOfPaths\bin\Debug\NumberOfPaths.exe.config
+C:\Users\vgim\Desktop\Desktop\Stuff\Algorithms\Repository\pramp\session-2-no-of-paths\NumberOfPaths\NumberOfPaths\bin\Debug\NumberOfPaths.exe
+C:\Users\vgim\Desktop\Desktop\Stuff\Algorithms\Repository\pramp\session-2-no-of-paths\NumberOfPaths\NumberOfPaths\bin\Debug\NumberOfPaths.pdb
+C:\Users\vgim\Desktop\Desktop\Stuff\Algorithms\Repository\pramp\session-2-no-of-paths\NumberOfPaths\NumberOfPaths\obj\Debug\NumberOfPaths.csprojResolveAssemblyReference.cache
+C:\Users\vgim\Desktop\Desktop\Stuff\Algorithms\Repository\pramp\session-2-no-of-paths\NumberOfPaths\NumberOfPaths\obj\Debug\NumberOfPaths.exe
+C:\Users\vgim\Desktop\Desktop\Stuff\Algorithms\Repository\pramp\session-2-no-of-paths\NumberOfPaths\NumberOfPaths\obj\Debug\NumberOfPaths.pdb
