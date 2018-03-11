@@ -1,0 +1,46 @@
+using System;
+using System.Collections.Generic;
+
+class Solution
+{
+    public static int[,] FindPairsWithGivenDifference(int[] arr, int k)
+    {
+      var resultList = new List<int[]>();
+      var hs = new HashSet<int>();
+      var length = arr.Length;
+      
+      // Fill hs with all values from arr
+      for(var i = 0; i < length; i++)  {
+        hs.Add(arr[i]);
+      }
+      
+      for(var i = 0; i < length; i++) 
+      {
+       // We need to have arr[i], which is y, on the right side of resultList to maintain order of y
+        var x = arr[i] + k;  
+        if(hs.Contains(x))
+        {
+          resultList.Add(new []{x, arr[i]});
+        }
+      }      
+      
+      // C# Does not have an easy way to add to 2D array without knowing its size in advance.
+      var resultLength = resultList.Count;
+      var result = new int[resultLength, 2];
+      for(var i = 0; i < resultLength; i++)
+      {        
+        result[i,0]  = resultList[i][0];
+        result[i,1]  = resultList[i][1];
+      }      
+      return result;
+    }
+
+  
+    static void Main(string[] args)
+    {
+      //var arr = new []{0, -1, -2, 2, 1};
+      //var k = 1;
+      //var result = FindPairsWithGivenDifference(arr, k); 
+    }
+}
+

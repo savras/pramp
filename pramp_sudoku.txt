@@ -1,0 +1,166 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace ConsoleApplication1
+{
+class Solution
+    {
+        public static List<char> GetAvailableNumbers(int row, int col, char[,] board)
+        {
+            var hs = new HashSet<char> { '1', '2', '3', '4', '5', '6', '7', '8', '9' };
+            // Row
+            for (var i = 0; i < 9; i++)
+            {
+                if (hs.Contains(board[row, i]))
+                {
+                    hs.Remove(board[row, i]);
+                }
+            }
+
+            // Col
+            for (var i = 0; i < 9; i++)
+            {
+                if (hs.Contains(board[i, col]))
+                {
+                    hs.Remove(board[i, col]);
+                }
+            }
+
+            // Quadrant        
+            var rowStart = (row / 3) * 3;
+            var colStart = (col / 3) * 3;
+
+            for (var i = rowStart; i < 3 + rowStart; i++)
+            {
+                for (var j = colStart; j < 3 + colStart; j++)
+                {
+                    if (hs.Contains(board[i, j]))
+                    {
+                        hs.Remove(board[i, col]);
+                    }
+                }
+            }
+
+            return hs.ToList();
+        }
+
+        public static bool SudokuSolve(char[,] board, int row, int col)
+        {
+            var solvable = false;
+            for (var i = row; i < board.GetLength(0); i++)
+            {
+                for (var j = col; j < board.GetLength(1) - 1; j++)
+                {
+                    if (board[i, j] == 0)
+                    {
+                        var numbers = GetAvailableNumbers(i, j, board);
+                        foreach (var number in numbers)
+                        {
+                            board[i, j] = number;
+                            var validRow = ValidateRow(i, board);
+                            var validCol = ValidateCol(j, board);
+                            var validQuad = ValidateQuadrant(i, j, board);
+                            if (validRow && validCol && validQuad)
+                            {
+                                solvable = solvable || SudokuSolve(board, i, j + 1);
+                            }
+                            else
+                            {
+                                board[i, j] = '0';
+                            }
+                        }
+                    }
+                }
+            }
+
+            return solvable;
+        }
+
+        public static bool ValidateRow(int row, char[,] board)
+        {
+            var result = true;
+            var hs = new HashSet<char>();
+            for (var i = 0; i < 9; i++)
+            {
+                var val = board[row, i];
+                if (!hs.Contains(val))
+                {
+                    hs.Add(val);
+                }
+                else
+                {
+                    result = false;
+                    break;
+                }
+            }
+            return result;
+        }
+
+        public static bool ValidateCol(int col, char[,] board)
+        {
+            var result = true;
+            var hs = new HashSet<char>();
+            for (var i = 0; i < 9; i++)
+            {
+                var val = board[i, col];
+                if (!hs.Contains(val))
+                {
+                    hs.Add(val);
+                }
+                else
+                {
+                    result = false;
+                    break;
+                }
+            }
+            return result;
+        }
+
+        public static bool ValidateQuadrant(int row, int col, char[,] board)
+        {
+            var result = true;
+            var hs = new HashSet<char>();
+            var rowStart = (row / 3) * 3;
+            var colStart = (col / 3) * 3;
+
+            for (var i = rowStart; i < 3 + rowStart; i++)
+            {
+                for (var j = colStart; j < 3 + colStart; j++)
+                {
+                    if (!hs.Contains(board[i, j]))
+                    {
+                        hs.Add(board[i, col]);
+                    }
+                    else
+                    {
+                        result = false;
+                        break;
+                    }
+                }
+            }
+            return result;
+        }
+
+        static void Main(string[] args)
+        {
+            var board = new char[9, 9]
+            {
+                {'5', '3', '.', '.', '7', '.', '.', '.', '.'},
+                {'6', '.', '.', '1', '9', '5', '.', '.', '.'},
+                {'.', '9', '8', '.', '.', '.', '.', '6', '.'},
+                {'8', '.', '.', '.', '6', '.', '.', '.', '3'},
+                {'4', '.', '.', '8', '.', '3', '.', '.', '1'},
+                {'7', '.', '.', '.', '2', '.', '.', '.', '6'},
+                {'.', '6', '.', '.', '.', '.', '2', '8', '.'},
+                {'.', '.', '.', '4', '1', '9', '.', '.', '5'},
+                {'.', '.', '.', '.', '8', '.', '.', '7', '9'},
+            };
+
+            Console.WriteLine(SudokuSolve(board, 0, 0));
+        }
+    }
+
+
+}
+}

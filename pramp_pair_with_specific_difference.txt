@@ -1,0 +1,51 @@
+using System;
+using System.Collections.Generic;
+
+// O(N) time O(N) memory
+// O(Nlg n) time O(1) memory
+
+class Solution
+{
+    public static int[,] FindPairsWithGivenDifference(int[] arr, int k)
+    { 
+
+      var resultList = new List<int[]>();
+
+  // arr = [0, -1, -2, 2, 1], k = 1
+      var hs = new HashSet<int>();
+      var length = arr.Length;
+      
+      for(var i = 0; i < length; i++)  {
+        hs.Add(arr[i]);
+      }
+      
+      for(var i = 0; i < length; i++) 
+      {
+        // x - y = k
+        var x = arr[i] + k;  
+        if(hs.Contains(x))
+        {
+          resultList.Add(new []{x, arr[i]});
+        }
+      }      
+      
+      var resultLength = resultList.Count;
+      var result = new int[resultLength, 2];
+      for(var i = 0; i < resultLength; i++)
+      {        
+        result[i,0]  = resultList[i][0];
+        result[i,1]  = resultList[i][1];
+      }
+      
+      return result;
+    }
+
+  
+    static void Main(string[] args)
+    {
+      //var arr = new []{0, -1, -2, 2, 1};
+      //var k = 1;
+      //var result = FindPairsWithGivenDifference(arr, k); 
+    }
+}
+

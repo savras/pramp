@@ -1,0 +1,56 @@
+using System;
+
+class Solution
+{
+    public static char[] ReverseWords(char[] arr)
+    {
+      var length = arr.Length;
+      
+      var lastIndexOfWord = length - 1;
+      var output = new char[length];
+      
+      var currentOutputIndex = 0;
+      for(var i = length - 1; i >=0; i--)
+      {
+        var startIndex = i + 1;
+        if(arr[i] == ' ')
+        { 
+          // hi hello => lastindex = 1, startindex =0
+          while(startIndex <= lastIndexOfWord)
+          {
+            output[currentOutputIndex] = arr[startIndex];
+            currentOutputIndex++;
+          }
+          output[currentOutputIndex++] = arr[i];//here instead ' ' =>arr[i]
+        }
+        
+        lastIndexOfWord = i - 1;
+      }
+      
+      // output = [hello ]
+      for(var i = 0; i <= lastIndexOfWord; i++) {
+        output[currentOutputIndex] = arr[i];
+        currentOutputIndex++;
+      }
+      
+      return output;
+    }
+
+    static void Main(string[] args)
+    {
+        var arr = new [] {'p', 'e', 'r', 'f', 'e', 'c', 't', '  ',
+                'm', 'a', 'k', 'e', 's', '  ',
+                'p', 'r', 'a', 'c', 't', 'i', 'c', 'e' };
+          
+        var result = ReverseWords(arr);      
+    }
+}
+
+// h i '' h e l l o
+//o l l e h ' ' i h
+//hello hi
+
+// reverse the string in place ==> then you will get // o l l e h ' ' i h and then you can reverse the word by word ==> once you see the space you reverse first word using inplace then it will hello ''ih, then you will be reversing ih to hi > final output will be hello hi
+
+[perfect makes practice]
+[practicemakes perfect ]

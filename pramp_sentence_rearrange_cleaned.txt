@@ -1,0 +1,49 @@
+using System;
+
+class Solution
+{
+    public static char[] ReverseWords(char[] arr)
+    {
+        var length = arr.Length;
+
+        var lastIndexOfWord = length - 1;
+        var output = new char[length];
+
+        var currentOutputIndex = 0;
+        for (var i = length - 1; i >= 0; i--)
+        {
+            if (arr[i] == ' ')
+            {
+                var startWordIndex = i + 1;
+
+                while (startWordIndex <= lastIndexOfWord)
+                {
+                    output[currentOutputIndex] = arr[startWordIndex];
+                    currentOutputIndex++;
+                    startWordIndex++;
+                }
+                output[currentOutputIndex++] = arr[i];
+                lastIndexOfWord = i - 1;
+            }
+        }
+
+        for (var i = 0; i <= lastIndexOfWord; i++)
+        {
+            output[currentOutputIndex] = arr[i];
+            currentOutputIndex++;
+        }
+
+        return output;
+    }
+
+    static void Main(string[] args)
+    {
+        //var arr = new char[] {'p', 'e', 'r', 'f', 'e', 'c', 't', ' ',
+        //                      'm', 'a', 'k', 'e', 's', ' ',
+        //                      'p', 'r', 'a', 'c', 't', 'i', 'c', 'e' };
+
+        var arr = new[]{'a', ' ', ' ', 'b'};
+
+        var result = ReverseWords(arr);
+    }
+}
