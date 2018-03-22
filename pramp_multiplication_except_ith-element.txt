@@ -1,0 +1,44 @@
+// https://www.linkedin.com/in/namngo/
+
+using System;
+
+class Solution
+{
+    public static int[] ArrayOfArrayProducts(int[] arr)
+    {
+      var length = arr.Length;
+      if (length == 0) {
+        return new int[0];
+      }
+      if (length == 1) {
+        return new int[0];
+      } 
+        
+      var output = new int[length];  
+      var productBeforeI = new int[length];
+      productBeforeI[0] = 1;
+      
+      var productAfterI = new int[length];
+      productAfterI[length - 1] = 1;
+      
+      for(var i = 1; i < length; i++) {
+        productBeforeI[i] = productBeforeI[i-1] * arr[i - 1];
+      }
+      
+      const int  offset = 1;
+      for(var i = length - 1 - offset; i >= 0; i--) {
+        productAfterI[i] = productAfterI[i+ 1] * arr[i + 1];
+      }
+      
+      for(var i = 0; i < length; i++) {
+        output[i] = productBeforeI[i] * productAfterI[i];
+      }
+      
+      return output;
+    }
+      
+    static void Main(string[] args)
+    {
+
+    }
+}

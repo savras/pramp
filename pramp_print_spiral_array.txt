@@ -1,0 +1,54 @@
+using System;
+using System.Collections.Generic;
+
+class Solution
+{  
+    public static void PrintZigZag(int rowStart, int colStart, int[,] inputMatrix, List<int> result) 
+    {      
+      if(inputMatrix.GetLength(1) == 1 && inputMatrix.GetLength(0) == 1) { 
+        result.Add(inputMatrix[0,0]); 
+        return;
+      }
+      
+      if(result.Count == inputMatrix.GetLength(0) * inputMatrix.GetLength(1)) {return;}
+      
+      const int offset = 1;
+      var rowLen = inputMatrix.GetLength(0) - rowStart - offset;
+      var colLen = inputMatrix.GetLength(1) - colStart - offset;
+      
+      // Print Left to Right
+      for(var i = colStart; i < colLen; i++) {
+        result.Add(inputMatrix[rowStart, i]);
+      }
+
+      // Print Top to Bottom
+      for(var i = rowStart; i < rowLen; i++) {
+        result.Add(inputMatrix[i, colLen]);
+      }
+      
+      // Print Right to Left
+      for(var i = colLen; i > colStart; i--) {
+        result.Add(inputMatrix[rowLen, i]);
+      }
+        
+      // Print Bottom to Top
+      for(var i = rowLen; i > rowStart; i--) {
+        result.Add(inputMatrix[i, colStart]);
+      }
+      
+      PrintZigZag(rowStart + 1, colStart + 1, inputMatrix, result);
+    }
+  
+    public static int[] SpiralCopy(int[,] inputMatrix)
+    {
+      var result = new List<int>();
+      
+      PrintZigZag(0, 0, inputMatrix, result);
+      return result.ToArray();  // O(n)
+    }
+
+    static void Main(string[] args)
+    {
+
+    }
+}
