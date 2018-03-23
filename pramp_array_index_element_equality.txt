@@ -6,9 +6,7 @@ class Solution
     {
       var result = -1;
       var length = arr.Length;
-      if(length == 0) {
-        return result;
-      }
+      if(length == 0) { return result; }
       
       var left = 0;
       var right = length - 1;
@@ -16,47 +14,22 @@ class Solution
       int mid = 0;
       while(left < right) {
         mid = left + (right - left)/2;
-        // arr[mid] - mid < 0 go to left 
-        // arr[mid] - mid > 0 go to right
-         // arr[mid]  == mid && arr[mid-1] != mid-1 then return mid;
-        //  0,  1, 2, 3, 4, 5
-        //  -5, 1, 2
-        if(arr[mid] == mid && (mid == 0 || arr[mid - 1] != mid  - 1) ) {
-          return mid;
-        }
         
-        if(arr[mid] <= mid)
+        if(arr[mid] >= mid)
         {
-          right = mid-1;
+          right = mid;
         }
         else {
-          left = mid;
+          left = mid + 1;
         }
       }
       
-      //if(arr[mid] == mid)
-      //{
-        //result = mid;
-      //}
+      if(arr[right] == right) {
+        result = right;
+      }
       
       return result;
     }
 
-    static void Main(string[] args)
-    {
-
-    }
+    static void Main(string[] args) { }
 }
-
-//   0   1   2   3   4  5
-//  -5, -4, -3, -2 ,-1  5,
-// [1]
-
-// Binary search arr[mid] <= arr[i]
-// BS (start, )
-//      12, 13, 14, 15, 16, 17, 19
-// [... 8,   9, 10, 11, 16, 19, 20]
-// new arr = arr[i] - i and then you search for zero in new arr
-// arr[i] > i ==> 
-        // 20   26
-// [ ... 21 ..27 ... ]
