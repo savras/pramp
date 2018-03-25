@@ -1,0 +1,85 @@
+using System;
+
+class Solution
+{
+  public class Node
+  {
+    public Node (int val, Node par) {
+      value = val;
+      parent = par;
+    }
+    
+    public int value;
+    public Node left;
+    public Node right;
+    public Node parent;
+  }
+
+  // 5, 9, 11, 12, 14, 20, 25
+  // existance of right child - if right child  or leftmost of right child
+  // check if given node is left child, take first parent
+  // look for parent that is left child, take its parent.
+  public static Node findInOrderSuccessor(Node inputNode)
+  {
+    Node successor = null;
+    // Check child successsor
+    if(inputNode.right != null) 
+    {        
+      successor = inputNode.right;
+      var current = successor.left;
+      
+      while(current != null)
+      {
+        current = current.left;
+      }
+      if(current != null) 
+      { 
+        successor = current;
+      }
+    }
+    
+    // parent case    
+    if(successor == null) 
+    {
+      var parent = inputNode.parent;
+      while(parent != null)
+      {
+        if(parent.value > inputNode.value)  
+        {
+          successor = parent;
+          break;
+        }
+        parent = parent.parent;
+      }
+    }
+    
+    return successor;    
+  }
+  
+  static void Main(string[] args)
+  {
+    var root = new Node(20, null);
+    root.left = new Node(9, root);
+    root.left.left = new Node(5, root.left);
+    root.left.right = new Node(12,root.left);
+    root.left.right.left = new Node(11, root.left.right);
+    root.left.right.right = new Node(14, root.left.right);
+    root.right = new Node(25, root);
+    
+    //var inputNode = root.left.right;  // 12
+    //var inputNode = root;  // 20
+    //var inputNode = root.right;  // 25
+    //var inputNode = root.left.left;  // 5
+    //var inputNode = root.left.right.left; // 11
+    var inputNode = root.left.right.right; // 14
+    var result = findInOrderSuccessor(inputNode);
+    if(result == null)
+    {
+      Console.WriteLine("null"); 
+    }
+    else {
+      Console.WriteLine(result.value);
+    }    
+  }
+}
+
