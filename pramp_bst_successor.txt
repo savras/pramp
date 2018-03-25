@@ -42,14 +42,17 @@ class Solution
     if(successor == null) 
     {
       var parent = inputNode.parent;
+      var child = inputNode;
+      // Node parent is also larger than child.
       while(parent != null)
       {
-        if(parent.value > inputNode.value)  
+        if(child.value ==  parent.left.value)  
         {
           successor = parent;
           break;
         }
-        parent = parent.parent;
+        child = parent;
+        parent = parent.parent;        
       }
     }
     
@@ -66,12 +69,12 @@ class Solution
     root.left.right.right = new Node(14, root.left.right);
     root.right = new Node(25, root);
     
-    //var inputNode = root.left.right;  // 12
-    //var inputNode = root;  // 20
-    //var inputNode = root.right;  // 25
-    //var inputNode = root.left.left;  // 5
-    //var inputNode = root.left.right.left; // 11
-    var inputNode = root.left.right.right; // 14
+    //var inputNode = root.left.right;  // 12 => 14
+    //var inputNode = root;  // 20 => 25
+    //var inputNode = root.right;  // 25 => null
+    var inputNode = root.left.left;  // 5 => 9
+    //var inputNode = root.left.right.left; // 11 => 12
+    //var inputNode = root.left.right.right; // 14 => 20
     var result = findInOrderSuccessor(inputNode);
     if(result == null)
     {
