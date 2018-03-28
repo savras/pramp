@@ -1,0 +1,51 @@
+using System;
+using System.Collections.Generic;
+
+class Solution
+{
+  // [4,4,1], 5
+ // Expected: [2,1]
+  
+    public static int[] GetIndicesOfItemWeights(int[] arr, int limit)
+    {
+        if(arr.Length == 0 || arr.Length == 1) {
+          return new int[0];
+        }
+
+      var dict = new Dictionary<int, int>();  // Key == elment, value == index.
+      dict.Add(arr[0], 0);
+      
+      var result = new int[2];
+      for(var i = 1; i < arr.Length; i++)
+      {
+        var complement = limit - arr[i];
+        if(dict.ContainsKey(complement)) {
+          
+          result[0] = i;
+          result[1] = dict[complement];
+          break;
+        }
+        if(dict.ContainsKey(arr[i]))
+        {
+          dict[arr[i]] =  i;
+        }
+        else {
+          dict.Add(arr[i], i);
+         }
+      }
+      
+      return result.Length == 2 ? result : new int[0];
+    }
+
+    static void Main(string[] args)
+    {
+
+    }
+}
+
+// lim == 21
+// 20 1 19 3
+
+// []
+//     i     j
+// 4 6 10 15 16
