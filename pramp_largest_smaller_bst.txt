@@ -1,0 +1,45 @@
+using System;
+
+class Solution
+{
+  public class Node
+  {
+    public Node (int k) {
+      key = k;
+    }
+    
+    public int key;
+    public Node left;
+    public Node right;
+    //public Node parent;
+  }
+    
+  public static int findLargestSmallerKey(Node current, int num)
+  {
+    
+    if(current == null) { return -1; }
+    if(current.key == num) { return -1;}
+    
+    if(current.key > num) {
+      return findLargestSmallerKey(current.left, num);
+    }
+    else {
+      return Math.Max(current.key, findLargestSmallerKey(current.right, num));
+    }
+  }
+
+  static void Main(string[] args)
+  {
+    var root = new Node(20);
+    root.left = new Node(9);
+    root.left.left = new Node(5);
+    root.left.right = new Node(12);
+    root.left.right.left = new Node(11);
+    root.left.right.right = new Node(14);
+    root.right = new Node(25);
+    
+    var num = 17;
+    Console.WriteLine(findLargestSmallerKey(root, num));
+  }
+}
+
